@@ -8,7 +8,7 @@
     ports:
     - name: port-8080
       port: 8080
-      targetPort: 8080
+      targetPort: 80
     selector:
       app: ansible-container-demo
       service: web
@@ -40,12 +40,16 @@
     containers:
     - securityContext: {}
       name: web
-      image: docker.io/ferhaty/ansible-container-demo-web:20170226181543
+      image: docker.io/ferhaty/ansible-container-demo-web:20170226161615
       args:
-      - node
-      - /usr/src/app/server.js
+      - /usr/bin/dumb-init
+      - nginx
+      - -c
+      - /etc/nginx/nginx.conf
+      - -g
+      - daemon off;
       ports:
-      - 8080
+      - 80
     replace: true
   register: output
 

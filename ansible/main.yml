@@ -1,26 +1,14 @@
 - hosts: web
   tasks:
-    - name: Install dumb init
-      get_url:
-        dest: /usr/bin/dumb-init
-        url: https://github.com/Yelp/dumb-init/releases/download/v1.0.2/dumb-init_1.0.2_amd64
-        mode: 0775
-        validate_certs: no
+    - name: create app directory
+      file:
+        path: /usr/src/app
+        state: directory
+        owner: node
+        group: node
 
-    - name: Install EPEL
-      yum:
-        name: epel-release
-        state: latest
-
-    - name: Install Nginx
-      yum:
-        name: nginx
-        state: latest
-
-    - name: Copy index update
+    - name: Copy server.js
       copy:
-        src: files/index.html
-        dest: /usr/share/nginx/html/index.html
-        owner: root
-        group: root
+        src: files/server.js
+        dest: /usr/src/app/server.js
         mode: 0777

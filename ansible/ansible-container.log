@@ -284,3 +284,84 @@ stdout:
 
 stderr:
 
+exec: oc project ansible-container-demo
+Received rc: 0
+stdout:
+Already on project "ansible-container-demo" on server "https://api.preview.openshift.com:443".
+
+stderr:
+
+exec: oc get route/web-8080 -o json
+Received rc: 1
+stdout:
+
+stderr:
+Error from server (NotFound): routes "web-8080" not found
+
+Create from template:
+{
+    "kind":"Route",
+    "spec":{
+        "to":{
+            "kind":"Service",
+            "name":"web"
+        },
+        "port":{
+            "targetPort":"port-8080"
+        }
+    },
+    "apiVersion":"v1",
+    "metadata":{
+        "labels":{
+            "app":"ansible-container-demo",
+            "service":"web"
+        },
+        "name":"web-8080"
+    }
+}
+Received rc: 0
+stdout:
+route "web-8080" created
+
+stderr:
+
+exec: oc get route/web-8080 -o json
+Received rc: 0
+stdout:
+{
+    "apiVersion": "v1",
+    "kind": "Route",
+    "metadata": {
+        "annotations": {
+            "openshift.io/host.generated": "true"
+        },
+        "creationTimestamp": "2017-02-26T18:18:32Z",
+        "labels": {
+            "app": "ansible-container-demo",
+            "service": "web"
+        },
+        "name": "web-8080",
+        "namespace": "ansible-container-demo",
+        "resourceVersion": "922830362",
+        "selfLink": "/oapi/v1/namespaces/ansible-container-demo/routes/web-8080",
+        "uid": "fafdb401-fc4f-11e6-a876-0ebeb1070c7f"
+    },
+    "spec": {
+        "host": "web-8080-ansible-container-demo.44fs.preview.openshiftapps.com",
+        "port": {
+            "targetPort": "port-8080"
+        },
+        "to": {
+            "kind": "Service",
+            "name": "web",
+            "weight": 100
+        },
+        "wildcardPolicy": "None"
+    },
+    "status": {
+        "ingress": null
+    }
+}
+
+stderr:
+

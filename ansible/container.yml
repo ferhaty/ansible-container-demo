@@ -1,11 +1,11 @@
 version: "1"
 services:
   web:
-    image: centos:7
+    image: node:latest
     ports:
-      - "8080:80"
+      - "8080:8080"
 
-    command: ['/usr/bin/dumb-init', 'nginx', '-c', '/etc/nginx/nginx.conf', "-g", "daemon off;"]
+    command: ['node', '/usr/src/app/server.js']
 
 
 registries: {}

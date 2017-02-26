@@ -11,18 +11,14 @@
                     {
                         "securityContext": {}, 
                         "name": "web", 
-                        "image": "docker.io/ferhaty/ansible-container-demo-web:20170226161615", 
+                        "image": "docker.io/ferhaty/ansible-container-demo-web:20170226181543", 
                         "args": [
-                            "/usr/bin/dumb-init", 
-                            "nginx", 
-                            "-c", 
-                            "/etc/nginx/nginx.conf", 
-                            "-g", 
-                            "daemon off;"
+                            "node", 
+                            "/usr/src/app/server.js"
                         ], 
                         "ports": [
                             {
-                                "containerPort": 80
+                                "containerPort": 8080
                             }
                         ]
                     }

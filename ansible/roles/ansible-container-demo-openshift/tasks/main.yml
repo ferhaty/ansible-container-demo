@@ -1,0 +1,57 @@
+
+- oso_service:
+    service_name: web
+    project_name: ansible-container-demo
+    labels:
+      app: ansible-container-demo
+      service: web
+    ports:
+    - name: port-8080
+      port: 8080
+      targetPort: 80
+    selector:
+      app: ansible-container-demo
+      service: web
+  register: output
+
+- debug: var=output
+  when: playbook_debug
+
+- oso_route:
+    project_name: ansible-container-demo
+    service_port: port-8080
+    labels:
+      app: ansible-container-demo
+      service: web
+    route_name: web-8080
+    replace: true
+    service_name: web
+  register: output
+
+- debug: var=output
+  when: playbook_debug
+
+- oso_deployment:
+    project_name: ansible-container-demo
+    labels:
+      app: ansible-container-demo
+      service: web
+    deployment_name: web
+    containers:
+    - securityContext: {}
+      name: web
+      image: docker.io/ferhaty/ansible-container-demo-web:20170226161615
+      args:
+      - /usr/bin/dumb-init
+      - nginx
+      - -c
+      - /etc/nginx/nginx.conf
+      - -g
+      - daemon off;
+      ports:
+      - 80
+    replace: true
+  register: output
+
+- debug: var=output
+  when: playbook_debug

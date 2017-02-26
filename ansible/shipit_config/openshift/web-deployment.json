@@ -1,0 +1,48 @@
+{
+    "kind": "DeploymentConfig", 
+    "spec": {
+        "strategy": {
+            "type": "Rolling"
+        }, 
+        "replicas": 1, 
+        "template": {
+            "spec": {
+                "containers": [
+                    {
+                        "securityContext": {}, 
+                        "name": "web", 
+                        "image": "docker.io/ferhaty/ansible-container-demo-web:20170226161615", 
+                        "args": [
+                            "/usr/bin/dumb-init", 
+                            "nginx", 
+                            "-c", 
+                            "/etc/nginx/nginx.conf", 
+                            "-g", 
+                            "daemon off;"
+                        ], 
+                        "ports": [
+                            {
+                                "containerPort": 80
+                            }
+                        ]
+                    }
+                ]
+            }, 
+            "metadata": {
+                "labels": {
+                    "app": "ansible-container-demo", 
+                    "service": "web"
+                }
+            }
+        }, 
+        "selector": {}
+    }, 
+    "apiVersion": "v1", 
+    "metadata": {
+        "labels": {
+            "app": "ansible-container-demo", 
+            "service": "web"
+        }, 
+        "name": "web"
+    }
+}

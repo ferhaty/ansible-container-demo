@@ -1,6 +1,6 @@
 galaxy_info:
   author: Ferhat Yildiz
-  description: Demo nginx hello world app
+  description: Demo of Node.js hello world app
   company: Turing Technology Services
 
   # If the issue tracker for your role is not on GitHub, uncomment the
